@@ -100,6 +100,18 @@ class TMDB:
         
         return cast, crew
 
+    def get_external_ids(self, movie_id):
+        """Fetch external IDs for a specific movie by its ID."""
+        url = f"https://api.themoviedb.org/3/movie/{movie_id}/external_ids"
+        response = requests.get(url, headers=self.headers)
+
+        # Check if the request was successful
+        if response.status_code != 200:
+            print(f"Error fetching external IDs: {response.status_code}")
+            return {"error": f"Failed to fetch external IDs for movie with ID {movie_id}"}
+        
+        # Parse and return the JSON response
+        return response.json()
 
 
     def trending_movies(self):
